@@ -9,8 +9,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 소스 코드 복사
 COPY src/ .
 
-# 실행 권한 설정
-RUN chmod +x main.py
-
 # 파이프라인 실행
 CMD ["python", "main.py"] 
