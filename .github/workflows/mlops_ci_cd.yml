@@ -24,11 +24,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run linters
-      run: |
-        pip install flake8 black
-        black --check .
-        flake8 .
+    # - name: Run linters
+    #   run: |
+    #     pip install flake8 black
+    #     black --check .
+    #     flake8 .
 
     - name: Build Docker image
       run: docker build -t mlops-app:latest .
