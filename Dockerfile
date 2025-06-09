@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ .
 
 # 실행 권한 설정
-RUN chmod +x pipeline.py
+RUN chmod +x main.py
 
 # 파이프라인 실행
 CMD ["python", "main.py"] 
