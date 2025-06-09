@@ -1,0 +1,32 @@
+# .github/workflows/train_and_upload.yml
+name: Train and Upload Model to S3
+
+on:
+  push:
+    branches: [model]
+
+jobs:
+  train-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
+          pip install boto3
+
+      - name: Run training script
+        run: |
+          python src/train.py  # 모델 저장 예: model/model.pkl
+
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp model/model.pkl s3://your-bucket-name/model-$(date +%F-%H%M%S).pkl
